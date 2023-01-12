@@ -1,0 +1,19 @@
+{
+  "name": "jobdavea",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://dikamjit-borah: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@github.com/dikamjit-borah/Jobdavea.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dikamjit-borah/Jobdavea/issues"
+  },
+  "homepage": "https://github.com/dikamjit-borah/Jobdavea#readme"
+}
