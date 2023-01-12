@@ -2,6 +2,8 @@ const cors = require("cors")
 const express = require("express")
 const app = express()
 
+const routes = require("./routes")
+
 const port = process.env.port || 8081;
 
 app.use(cors());
@@ -12,4 +14,8 @@ app.listen(port, () => {
     throw ex;
   });
 });
+
+routes(app)
+
+
 
