@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const { schemaSkill } = require("../schemas/schema.skill")
 const schemaJob = new mongoose.Schema({
     title: {
         type: String,
@@ -11,6 +11,10 @@ const schemaJob = new mongoose.Schema({
     created_by: {
         type: String,
         required: true,
+    },
+    required_skills: {
+        type: [schemaSkill],
+        required: true
     }
 });
 

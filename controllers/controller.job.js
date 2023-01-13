@@ -8,7 +8,8 @@ module.exports = {
             const details = {
                 title,
                 description,
-                created_by
+                created_by,
+                required_skills
             } = { ...req.body }
 
             const jobCreated = await serviceJob.createNewJob(details)
@@ -28,6 +29,20 @@ module.exports = {
 
             const jobs = await serviceJob.getAllJobs(limit, skip, filters)
             if (jobs.length) return sendSuccess(res, 200, "Jobs fetched successfully!", { jobs })
+        } catch (error) {
+            return sendError(res, error)
+        }
+    },
+
+    apply: async function (req, res) {
+        try {
+            const {
+                jobId,
+                candidateId,
+            } = { ...req.body }
+
+            const jobApplied = serviceJob.submitCandidateToJob(jobId, candidateId)
+            if (jobApplied) return sendSuccess(res, 201, "Applied to job successfully!")
         } catch (error) {
             return sendError(res, error)
         }
