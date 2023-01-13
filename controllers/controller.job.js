@@ -3,20 +3,25 @@ const Job = require("../schemas/schema.job")
 module.exports = {
     create: async function (req, res) {
         try {
-            let job = new Job({
-                title: 'new title',
-                description: "aadad",
-                created_by: "ddk@gmail.com"
-            })
+            const jobDetails = {
+                title,
+                description,
+                created_by
+            } = { ...req.body }
+
+            let job = new Job(
+                jobDetails
+            )
 
             job.save().then(doc => {
-                console.log(doc)
+                return res.send(`Job created successfully ${doc}`)
+            }).catch(err => {
+                console.error("fucl", err)
+                return res.send(`Error ${err}`)
             })
-                .catch(err => {
-                    console.error(err)
-                })
         } catch (error) {
             console.log("sss", error);
+            return res.send(`lolo ${error}`)
         }
     }
 }
