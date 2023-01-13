@@ -1,24 +1,19 @@
 const Job = require("../schemas/schema.job")
+const serviceJob = require("../services/service.job")
 const { sendSuccess, sendError } = require("../utils/response.handler")
 
 module.exports = {
     create: async function (req, res) {
         try {
-            const jobDetails = {
+            const details = {
                 title,
                 description,
                 created_by
             } = { ...req.body }
 
-            let job = new Job(
-                jobDetails
-            )
+            const jobCreated = await serviceJob.createNewJob(details)
+            if (jobCreated) return sendSuccess(res, 201, "Job created successfully", { details: jobCreated })
 
-            job.save().then(doc => {
-                return sendSuccess(res, 201, "Job created successfully!", { jobData: doc })
-            }).catch(err => {
-                return sendError(res, err)
-            })
         } catch (error) {
             return sendError(res, error)
         }
@@ -29,8 +24,10 @@ module.exports = {
             const {
                 limit, skip
             } = { ...req.query }
-            const jobs = await Job.find({}).limit(limit ? limit : 24).skip(skip ? skip : 0)
-            return sendSuccess(res, 200, "Jobs fetched successfully!", { jobs })
+            let filters
+
+            const jobs = await serviceJob.getAllJobs(limit, skip, filters)
+            if (jobs.length) return sendSuccess(res, 200, "Jobs fetched successfully!", { jobs })
         } catch (error) {
             return sendError(res, error)
         }
