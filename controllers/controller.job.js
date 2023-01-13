@@ -1,4 +1,5 @@
 const Job = require("../schemas/schema.job")
+const { sendSuccess, sendError } = require("../utils/response.handler")
 
 module.exports = {
     create: async function (req, res) {
@@ -14,14 +15,20 @@ module.exports = {
             )
 
             job.save().then(doc => {
-                return res.send(`Job created successfully ${doc}`)
+                return sendSuccess(res, 201, "Job created successfully!", { jobData: doc })
             }).catch(err => {
-                console.error("fucl", err)
-                return res.send(`Error ${err}`)
+                return sendError(res, err)
             })
         } catch (error) {
-            console.log("sss", error);
-            return res.send(`lolo ${error}`)
+            return sendError(res, error)
+        }
+    },
+
+    all: async function (req, res) {
+        try {
+
+        } catch (error) {
+
         }
     }
 }
