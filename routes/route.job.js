@@ -1,6 +1,7 @@
+const { create } = require("../controllers/controller.job");
+
 const router = require("express").Router();
 
-router.get("/create", (req, res) =>
-    res.send("job created"));
+router.post("/create", create);
 
 module.exports = router;
