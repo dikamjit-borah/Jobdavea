@@ -18,7 +18,7 @@ app.listen(port, () => {
   });
 });
 
-require("./modules/mongodb.setup")()
+require("./modules/mongoose/mongodb.setup")()
 routes(app)
 
 
