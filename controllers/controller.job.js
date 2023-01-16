@@ -36,13 +36,15 @@ module.exports = {
 
     apply: async function (req, res) {
         try {
+            const jobId = req.params.id
             const {
-                jobId,
-                candidateId,
+                submission,
             } = { ...req.body }
 
-            const jobApplied = serviceJob.submitCandidateToJob(jobId, candidateId)
-            if (jobApplied) return sendSuccess(res, 201, "Applied to job successfully!")
+            if (!jobId) return sendError(res, null, "Job id is not valid!")
+            const jobApplied = await serviceJob.submitCandidateToJob(jobId, submission)
+            if (!jobApplied.jobExist) return sendError(res, null, "Job id does not exist!", 400)
+            if (jobApplied.result) return sendSuccess(res, 201, "Applied to job successfully!") //return {applicationId: _id}
         } catch (error) {
             return sendError(res, error)
         }

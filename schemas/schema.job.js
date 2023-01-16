@@ -15,7 +15,32 @@ const schemaJob = new mongoose.Schema({
     required_skills: {
         type: [schemaSkill],
         required: true
+    },
+    submissions: {
+        type: [
+            {
+                submitted_on: {
+                    type: Date,
+                    required: true
+                },
+                candidate_details: {
+                    name: {
+                        type: String,
+                        required: true
+                    },
+                    email: {
+                        type: String,
+                        required: true
+                    },
+                    resume: {
+                        type: String,
+                        required: true
+                    }
+                },
+            }
+        ]
     }
+
 });
 
 const Job = mongoose.model("Jobs", schemaJob);

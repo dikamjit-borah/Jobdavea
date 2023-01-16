@@ -15,5 +15,30 @@ module.exports = {
         } catch (error) {
             throw new Error(error.message)
         }
+    },
+
+    submitCandidateToJob: async function (jobId, submission) {
+        try {
+            let result;
+            let jobExist = false;
+            if (await Job.exists({ _id: jobId })) {
+                jobExist = true
+                result = await Job.findOneAndUpdate({
+                    _id: jobId
+                }, {
+                    "$push": {
+                        submissions: submission
+                    }
+                }, {
+                    new: true
+                })
+            }
+            return {
+                jobExist,
+                result
+            }
+        } catch (error) {
+            throw new Error(error.message)
+        }
     }
 }
