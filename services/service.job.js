@@ -40,5 +40,26 @@ module.exports = {
         } catch (error) {
             throw new Error(error.message)
         }
+    },
+
+    getSubmissionsForJob: async function (jobId) {
+        try {
+            let result;
+            let jobExist = false;
+            if (await Job.exists({ _id: jobId })) {
+                jobExist = true
+                result = await Job.find({
+                    _id: jobId
+                }, {
+                    submissions: 1,
+                })
+            }
+            return {
+                jobExist,
+                result
+            }
+        } catch (error) {
+            throw new Error(error.message)
+        }
     }
 }
