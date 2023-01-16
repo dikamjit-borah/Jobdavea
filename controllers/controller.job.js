@@ -25,10 +25,24 @@ module.exports = {
             const {
                 limit, skip
             } = { ...req.query }
-            let filters
+            let filter_by_skills = []
+            let filter_by_experience = []
 
-            const jobs = await serviceJob.getAllJobs(limit, skip, filters)
+            for (let [key, value] of Object.entries(req.query)) {
+                if (key.indexOf("filter_by_skills") != -1) {
+                    filter_by_skills.push(value.split(","));
+                }
+                if (key.indexOf("filter_by_experience") != -1) {
+                    filter_by_experience.push(value.split(","));
+                }
+            }
+
+            filter_by_skills[0] = filter_by_skills[0].map((fbs) => { if (Number.isInteger(parseInt(fbs))) return parseInt(fbs) })
+            filter_by_experience[0] = filter_by_experience[0].map((fbe) => { if (Number.isInteger(parseInt(fbe))) return parseInt(fbe) })
+
+            const jobs = await serviceJob.getAllJobs(limit, skip, filter_by_skills, filter_by_experience[0])
             if (jobs.length) return sendSuccess(res, 200, "Jobs fetched successfully!", { jobs })
+            return sendSuccess(res, 404, "Jobs not found!")
         } catch (error) {
             return sendError(res, error)
         }

@@ -1,9 +1,3 @@
-let response = {
-    status: 500,
-    message: "Something went wrong!",
-};
-
-
 async function sendError(res, err, msg, status) {
     console.log(err);
     return sendSuccess(res, status ? status : null, msg ? msg : null, null, err && err.message ? err.message : null)
@@ -11,6 +5,10 @@ async function sendError(res, err, msg, status) {
 }
 
 async function sendSuccess(res, status, msg, data, errs) {
+    let response = {
+        status: 500,
+        message: "Something went wrong!",
+    };
     if (status) response.status = status;
     if (msg) response.message = msg;
     if (data) response["data"] = data;

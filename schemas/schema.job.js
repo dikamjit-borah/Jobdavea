@@ -16,6 +16,9 @@ const schemaJob = new mongoose.Schema({
         type: [schemaSkill],
         required: true
     },
+    required_experience:{
+        type: Number,
+    },
     submissions: {
         type: [
             {
