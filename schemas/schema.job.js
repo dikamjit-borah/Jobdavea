@@ -16,7 +16,7 @@ const schemaJob = new mongoose.Schema({
         type: [schemaSkill],
         required: true
     },
-    required_experience:{
+    required_experience: {
         type: Number,
     },
     submissions: {
@@ -38,6 +38,9 @@ const schemaJob = new mongoose.Schema({
                     resume: {
                         type: String,
                         required: true
+                    },
+                    cover_letter: {
+                        type: String
                     }
                 },
             }

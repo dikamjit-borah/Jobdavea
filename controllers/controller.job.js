@@ -1,5 +1,6 @@
 const Job = require("../schemas/schema.job")
 const serviceJob = require("../services/service.job")
+const showdown = require("showdown")
 const { sendSuccess, sendError } = require("../utils/response.handler")
 
 module.exports = {
@@ -65,9 +66,17 @@ module.exports = {
     apply: async function (req, res) {
         try {
             const jobId = req.params.id
-            const {
-                submission,
+            const body = {
+                name, email, resume, cover_letter
             } = { ...req.body }
+
+            candidate_details = { ...body, cover_letter: (new showdown.Converter().makeHtml(cover_letter)) }
+
+            const submitted_on = new Date().toISOString()
+            const submission = {
+                submitted_on,
+                candidate_details
+            }
 
             if (!jobId) return sendError(res, null, "Job id is not valid!")
             const jobApplied = await serviceJob.submitCandidateToJob(jobId, submission)
