@@ -48,6 +48,20 @@ module.exports = {
         }
     },
 
+    details: async function (req, res) {
+        try {
+            const jobId = req.params.id
+
+            if (!jobId) return sendError(res, null, "Job id is not valid!")
+            const jobDetails = await serviceJob.getJobDetails(jobId)
+            if (!jobDetails.jobExist) return sendError(res, null, "Job id does not exist!", 400)
+            if (jobDetails.result) return sendSuccess(res, 201, "Job details fetched successfully!", { details: jobDetails.result }) //return {applicationId: _id}
+            return sendSuccess(res, 404, "Details not found for the given job id!")
+        } catch (error) {
+            return sendError(res, error)
+        }
+    },
+
     apply: async function (req, res) {
         try {
             const jobId = req.params.id

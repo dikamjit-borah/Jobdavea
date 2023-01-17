@@ -38,6 +38,30 @@ module.exports = {
         }
     },
 
+    getJobDetails: async function (jobId) {
+        try {
+            let result;
+            let jobExist = false;
+            if (await Job.exists({ _id: jobId })) {
+                jobExist = true
+                result = await Job.findOne({
+                    _id: jobId
+                }, {
+                    title: 1,
+                    description: 1,
+                    required_skills: 1,
+                    required_experience: 1
+                })
+            }
+            return {
+                jobExist,
+                result
+            }
+        } catch (error) {
+            throw new Error(error.message)
+        }
+    },
+
     submitCandidateToJob: async function (jobId, submission) {
         try {
             let result;
@@ -72,6 +96,10 @@ module.exports = {
                 result = await Job.find({
                     _id: jobId
                 }, {
+                    title: 1,
+                    description: 1,
+                    required_skills: 1,
+                    required_experience: 1,
                     submissions: 1,
                 })
             }
