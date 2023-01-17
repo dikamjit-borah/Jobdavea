@@ -37,10 +37,10 @@ module.exports = {
                 }
             }
 
-            filter_by_skills[0] = filter_by_skills[0].map((fbs) => { if (Number.isInteger(parseInt(fbs))) return parseInt(fbs) })
-            filter_by_experience[0] = filter_by_experience[0].map((fbe) => { if (Number.isInteger(parseInt(fbe))) return parseInt(fbe) })
+            //filter_by_skills[0] = filter_by_skills[0].map((fbs) => { if (Number.isInteger(parseInt(fbs))) return parseInt(fbs) })
+            //filter_by_experience[0] = filter_by_experience[0].map((fbe) => { if (Number.isInteger(parseInt(fbe))) return parseInt(fbe) })
 
-            const jobs = await serviceJob.getAllJobs(limit, skip, filter_by_skills, filter_by_experience[0])
+            const jobs = await serviceJob.getAllJobs(limit, skip, filter_by_skills[0], filter_by_experience[0])
             if (jobs.length) return sendSuccess(res, 200, "Jobs fetched successfully!", { jobs })
             return sendSuccess(res, 404, "Jobs not found!")
         } catch (error) {
