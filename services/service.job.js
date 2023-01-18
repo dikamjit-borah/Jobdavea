@@ -48,6 +48,7 @@ module.exports = {
                     _id: jobId
                 }, {
                     title: 1,
+                    created_by: 1,
                     description: 1,
                     required_skills: 1,
                     required_experience: 1
