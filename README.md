@@ -12,7 +12,8 @@
 ### The application is built using Node.js and Express, and persist data using a MongoDB database. 
 #### It exposes the following RESTful API endpoints for clients to access the job postings and applications:
 
-##### A GET route to fetch all the jobs in the collection
+```
+**GET** /job/all
+```
+A GET route to fetch all the jobs in the collection    
 
-**GET** /job/all <br>
-    
